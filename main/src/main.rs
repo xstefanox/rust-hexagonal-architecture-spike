@@ -7,7 +7,8 @@ use adapter::{CarDealerStub, InMemoryCarRepository};
 use domain::CarPurchaseUseCase;
 use web::Server;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     env_logger::Builder::from_default_env()
         .target(Stdout)
         .filter_level(Debug)
@@ -19,5 +20,5 @@ fn main() {
             car_repository: &InMemoryCarRepository {},
             car_dealer: &CarDealerStub(),
         }
-    }.run();
+    }.run().await;
 }

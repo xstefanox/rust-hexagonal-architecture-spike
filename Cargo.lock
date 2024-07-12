@@ -770,6 +770,7 @@ dependencies = [
  "domain",
  "env_logger",
  "log",
+ "tokio",
  "web",
 ]
 
