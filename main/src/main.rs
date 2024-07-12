@@ -4,7 +4,8 @@ use log::LevelFilter;
 use Target::Stdout;
 
 use adapter::{CarDealerStub, InMemoryCarRepository};
-use domain::CarSearchUseCase;
+use domain::CarPurchaseUseCase;
+use web::Server;
 
 fn main() {
     env_logger::Builder::from_default_env()
@@ -13,14 +14,10 @@ fn main() {
         .parse_default_env()
         .init();
 
-    let repository = InMemoryCarRepository {};
-    let car_dealer = CarDealerStub();
-    let search_cars = CarSearchUseCase {
-        car_repository: &repository,
-        car_dealer: &car_dealer,
-    };
-
-    let cars = search_cars.run();
-
-    println!("{:?}", cars);
+    Server {
+        purchase_car: CarPurchaseUseCase {
+            car_repository: &InMemoryCarRepository {},
+            car_dealer: &CarDealerStub(),
+        }
+    }.run();
 }

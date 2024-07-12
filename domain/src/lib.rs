@@ -26,12 +26,12 @@ pub trait CarDealer {
     fn buy(&self, car: &Car, user: &User) -> Purchase;
 }
 
-pub struct CarSearchUseCase<'a> {
+pub struct CarPurchaseUseCase<'a> {
     pub car_repository: &'a dyn CarRepository,
     pub car_dealer: &'a dyn CarDealer,
 }
 
-impl CarSearchUseCase<'_> {
+impl CarPurchaseUseCase<'_> {
     pub fn run(&self) -> Vec<Car> {
         let user = User {
             id: 123,

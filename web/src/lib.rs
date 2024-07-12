@@ -3,6 +3,7 @@ use axum::{
     , routing::get,
 };
 use rocket::tokio;
+use domain::CarPurchaseUseCase;
 
 #[tokio::main]
 async fn main() {
@@ -18,6 +19,16 @@ async fn main() {
         .unwrap();
 
     axum::serve(listener, app).await.unwrap();
+}
+
+pub struct Server<'a> {
+    pub purchase_car: CarPurchaseUseCase<'a>,
+}
+
+impl Server<'_> {
+    pub fn run(&self) {
+        self.purchase_car.run();
+    }
 }
 
 // basic handler that responds with a static string
